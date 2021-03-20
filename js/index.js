@@ -12,7 +12,8 @@ const getPosts = () => {
     .then((response) => response.json())
     .then((resData) => {
       buildPosts(resData);
-    });
+    })
+    .catch((error) => alert(error.message));
 };
 
 const buildPosts = (blogPosts) => {
@@ -20,8 +21,10 @@ const buildPosts = (blogPosts) => {
   for (blogPost of blogPosts) {
     let postDate = new Date(parseInt(blogPost.added_date)).toDateString();
     const postImage = `${API_BASE_URL}${blogPost.post_image}`;
+    const postLink = `/post.html?id=${blogPost.id}`;
     blogPostContent += `
-    <div class="post">
+    
+    <div class="post"><a class="post-link" href="${postLink}"></a>
           <div class="post-image" style="background-image: url(${postImage})"></div>
           <div class="post-content">
             <div class="post-date">${postDate}</div>
